@@ -101,46 +101,83 @@ docker compose -p kitchenpos up -d
 |  |  |  |
 
 ## 모델링
-
 ### 상품
+- `Product` 는 식별자, `ProductName`, `ProductPrice` 을 가진다.
 
 ### 메뉴 그룹
+- `MenuGroup` 은 식별자, `MenuGroupName` 을 가진다.
 
 ### 메뉴
+- `Menu` 는 식별자, `MenuName`, `MenuPrice`, `MenuGroup`, `MenuDisplayStatus`, `MenuProducts` 를 가진다.
+- `Menu`에서 `MenuProducts`를 생성한다.
+- `Menu`에서 `MenuDisplayStatus` 를 변경한다.
+- `Menu`에서 `MenuProduct` 가격의 총 `Price`을 계산한다.
 
-### 주문테이블
+### 메뉴 상품
+- `MenuProduct` 는 `Product`, `Quantity` 을 가진다.
+- `MenuProduct` 에서 `Product` 의 총 `Price` 을 계산한다.
 
-#### 배달 주문
-- `주문접수` 정책
-  - `노출된 메뉴`가 있고 `주문 상태`가 `배달 주문`이며 `배달 주소`가 있으면 `주문`이 가능하다.
-  - `주문`된 내역의 변경 또는 취소는 불가능하다.
-- `주문수락` 정책
-  - `주문 상태` 가 `주문접수`가 아닌 경우 `주문수락`이 불가능하다.
-  - `주문수락` 시 `배달대행사` 에게 배달을 요청하며 `배달대행사` 가 배달을 수락할 경우 `주문수락` 이 된다.
-    - `배달대행사` 가 배달을 거절할 경우 `주문접수` 상태로 유지된다.
-- `서빙완료` 정책
-  - `주문상태` 가 `주문수락` 이 아닌 경우 `서빙완료`가 불가능하다.
-- `배달 중` 정책
-  - `배달 주문`이 아닌 경우 `배달 중` 으로 처리가 불가능하다.
-  - `서빙완료` 상태가 아닌 경우 `배달 중` 으로 처리가 불가능하다.
-- `배달완료` 정책
-  - `배달 중` 상태가 아닌 경우 `배달완료`로 처리 불가능하다.
-- `주문완료` 정책
-  - `배달완료` 상태가 아닌 경우 `주문완료`로 처리 불가능하다.
+### 주문 테이블
+- `OrderTable` 은 식별자, `OrderTableName`, `NumberOfGuests`, `Occupied` 를 가진다.
+- `OrderTable` 에서 `Occupied`를 변경한다.
 
-- 배달 주문 상태 FLOW
-```mermaid
-flowchart LR
-    
-  A[주문접수] --> |사장님 수락| B{배달대행사 수락여부}
-  B --> |대행 거절| A
-  B --> |대행 수락| D(주문수락)
-  D --> E(서빙완료)
-  E --> F(배달중)
-  F --> G(배달완료)
-  G --> H[주문완료]
-```
+### 배달 주문
+- `Order` 는 `OrderType` 중 `DELIVERY_ORDER` 를 가진다.
+- `Order` 는 식별자, `OrderStatus`, 주문 일시, `DeliveryAddress`, `OrderLineItems` 을 가진다.
+- `Order` 에서 `OrderLineItems` 를 생성한다.
+- `OrderLineItems`은 선택한 `Menu`와 `Quantity`과 총 `Price`을 가진다.
+- `Order` 에서 `OrderStatus` 를 변경한다.
+- `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Delivering` → `Delivered` → `Completed` 를 가진다.
+  ```mermaid
+  ---
+  title: Delivery OrderStatus
+  ---
+  flowchart LR
+    A[Waiting] --> D(Accepted)
+    D --> E(Served)
+    E --> F(Delivering)
+    F --> G(Delivered)
+    G --> H[Completed]
+  ```
 
-#### 포장 주문
+### 포장 주문
+- `Order` 는 `OrderType` 중 `TAKEOUT` 를 가진다.
+- `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems` 을 가진다.
+- `Order` 에서 `OrderLineItems` 를 생성한다.
+- `OrderLineItems`은 선택한 `Menu`와 `Quantity` 과 총 `Price` 을 가진다.
+- `Order` 에서 `OrderStatus` 를 변경한다.
+- `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
+  ```mermaid
+  ---
+  title: Takeout OrderStatus
+  ---
+  flowchart LR
+    A[Waiting] --> D(Accepted)
+    D --> E(Served)
+    E --> H[Completed]
+  ```
 
-#### 매장 주문
+### 매장 주문
+- `Order` 는 `OrderType` 중 `EAT_IN` 를 가진다.
+- `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems`, `OrderTable`을 가진다.
+- `Order` 에서 `OrderLineItems` 를 생성한다.
+- `OrderLineItems`은 선택한 `Menu`와 `Quantity` 과 총 `Price` 을 가진다.
+- `Order` 에서 `OrderStatus` 를 변경한다.
+- `OrderStatus` 는 `Waiting` → `Accepted` → `Served` →  `Completed` 를 가진다.
+  ```mermaid
+  ---
+  title: EatIn OrderStatus
+  ---
+  flowchart LR
+    A[Waiting] --> D(Accepted)
+    D --> E(Served)
+    E --> H[Completed]
+  ```
+
+### 기타
+#### 주문 등록 정책
+- `배달 주문`: `메뉴`가 `노출된 메뉴`이고 `배달 주소`가 있어야 `메뉴`가 0개 이상이어야 등록이 가능하다.
+- `매장 주문`: `메뉴`가 `노출된 메뉴`이고 `주문 테이블`이 있어야 등록이 가능하다.
+- `포장 주문`: `메뉴`가 `노출된 메뉴`이고 `메뉴`가 0개 이상이어야 등록이 가능하다.
+#### 주문상태 변경 정책
+- `주문`의 유형별로 정의된 `주문상태`의 순서대로만 변경이 가능하다.
