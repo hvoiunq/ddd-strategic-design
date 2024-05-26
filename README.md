@@ -254,8 +254,7 @@ docker compose -p kitchenpos up -d
 - `Order` 에서 `OrderLineItems` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
--
-    - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
+- `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
 - 주문 등록 정책 : `Menu`가 `DisplayedMenu` 면서 0개 이상이어야 등록이 가능하다.
 
   ```mermaid
