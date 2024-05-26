@@ -191,15 +191,19 @@ docker compose -p kitchenpos up -d
 | 매장 주문 완료 | eat-in order completed | - 주문이 완료된 상태를 말한다.                                                                                       |
 
 ## 모델링
+
 ### 상품
+
 - `Product` 는 식별자, `ProductName`, `ProductPrice` 을 항상 가진다.
 - `ProductPrice` 는 0원보다 적을 수 없다.
 - `Product` 에서 `ProductPrice` 를 변경한다.
 
 ### 메뉴 그룹
+
 - `MenuGroup` 은 식별자, `MenuGroupName` 를 항상 가진다.
 
 ### 메뉴
+
 - `Menu` 는 식별자, `MenuName`, `MenuPrice`, `MenuGroup`, `MenuDisplayStatus`, `MenuProducts` 를 가진다.
 - `Menu`에서 `MenuProducts`를 생성한다.
 - `Menu` 에서 `MenuProduct` 의 총 `Price`을 계산한다.
@@ -212,6 +216,7 @@ docker compose -p kitchenpos up -d
 - `MenuProduct` 에서 `Product` 의 총 `Price` 을 계산한다.
 
 ### 주문 테이블
+
 - `OrderTable` 은 식별자, `OrderTableName`, `NumberOfGuests`, `Occupied` 를 항상가진다.
 - `OrderTable` 에서 `Occupied`를 `OccupyingTable` 또는 `ClearedTable` 로 변경한다.
 - `ClearedTable` 로 변경할 때 `Order` 의 상태가 `COMPLETED` 여야 한다.
@@ -221,6 +226,7 @@ docker compose -p kitchenpos up -d
 - `NumberOfGuests` 는 `OccupyingTable` 일 때만 가능하다.
 
 ### 배달 주문
+
 - `Order` 는 `OrderType` 중 `DELIVERY_ORDER` 를 가진다.
 - `Order` 는 식별자, `OrderStatus`, 주문 일시, `DeliveryAddress`, `OrderLineItems` 을 가진다.
 - `Order` 에서 `OrderLineItems` 를 생성한다.
@@ -242,12 +248,14 @@ docker compose -p kitchenpos up -d
   ```
 
 ### 포장 주문
+
 - `Order` 는 `OrderType` 중 `TAKEOUT` 를 가진다.
 - `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems` 을 가진다.
 - `Order` 에서 `OrderLineItems` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
-- - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
+-
+    - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
 - 주문 등록 정책 : `Menu`가 `DisplayedMenu` 면서 0개 이상이어야 등록이 가능하다.
 
   ```mermaid
@@ -261,6 +269,7 @@ docker compose -p kitchenpos up -d
   ```
 
 ### 매장 주문
+
 - `Order` 는 `OrderType` 중 `EAT_IN` 를 가진다.
 - `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems`, `OrderTable`을 가진다.
 - `Order` 에서 `OrderLineItems` 를 생성한다.
