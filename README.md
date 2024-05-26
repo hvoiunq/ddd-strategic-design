@@ -227,6 +227,8 @@ docker compose -p kitchenpos up -d
 - `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
 - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Delivering` → `Delivered` → `Completed` 를 가진다.
+- 주문 등록 정책 : `Menu`가 `DisplayedMenu` 면서 0개 이상 주문을 해야하고, `DeliveryAddress`가 있어야 가능하다.
+
   ```mermaid
   ---
   title: Delivery OrderStatus
@@ -245,7 +247,9 @@ docker compose -p kitchenpos up -d
 - `Order` 에서 `OrderLineItems` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
-- `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
+- - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
+- 주문 등록 정책 : `Menu`가 `DisplayedMenu` 면서 0개 이상이어야 등록이 가능하다.
+
   ```mermaid
   ---
   title: Takeout OrderStatus
@@ -263,6 +267,8 @@ docker compose -p kitchenpos up -d
 - `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
 - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` →  `Completed` 를 가진다.
+- 주문 등록 정책 : `Menu`가 `DisplayedMenu`이고. `OrderTable`이 있어야 등록이 가능하다.
+
   ```mermaid
   ---
   title: EatIn OrderStatus
@@ -272,11 +278,3 @@ docker compose -p kitchenpos up -d
     D --> E(Served)
     E --> H[Completed]
   ```
-
-### 기타
-#### 주문 등록 정책
-- `배달 주문`: `메뉴`가 `노출된 메뉴`이고 `배달 주소`가 있어야 `메뉴`가 0개 이상이어야 등록이 가능하다.
-- `매장 주문`: `메뉴`가 `노출된 메뉴`이고 `주문 테이블`이 있어야 등록이 가능하다.
-- `포장 주문`: `메뉴`가 `노출된 메뉴`이고 `메뉴`가 0개 이상이어야 등록이 가능하다.
-#### 주문상태 변경 정책
-- `주문`의 유형별로 정의된 `주문상태`의 순서대로만 변경이 가능하다.
