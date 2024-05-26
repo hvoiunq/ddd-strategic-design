@@ -192,6 +192,7 @@ docker compose -p kitchenpos up -d
 - `Product` 는 식별자, `ProductName`, `ProductPrice` 을 항상 가진다.
 - `ProductPrice` 는 0원보다 적을 수 없다.
 - `Product` 에서 `ProductPrice` 를 변경한다.
+- `ProductName` 는 `Slang`을 포함할 수 없다.
 
 ### 메뉴 그룹
 
@@ -200,7 +201,8 @@ docker compose -p kitchenpos up -d
 ### 메뉴
 
 - `Menu` 는 식별자, `MenuName`, `MenuPrice`, `MenuGroup`, `MenuDisplayStatus`, `MenuProducts` 를 가진다.
-- `Menu`에서 `MenuProducts`를 생성한다.
+- `MenuName` 은 `Slang`을 포함할 수 없다.
+- `Menu` 에서 `MenuProducts`를 생성한다.
 - `Menu` 에서 `MenuProduct` 의 총 `Price`을 계산한다.
 - `Menu` 에서 `MenuDisplayStatus` 를 `DisplayedMenu` 로 변경 할 수 있다.
 - `MenuPrice` 가 `MenuProduct` 의 총 `Price` 를 초과하는 경우 `DisplayedMenu` 로 변경할 수 없다.
