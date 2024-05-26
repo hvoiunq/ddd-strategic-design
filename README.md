@@ -208,8 +208,6 @@ docker compose -p kitchenpos up -d
 - `Menu` 에서 `MenuDisplayStatus` 를 `UndisplayedMenu` 로 변경 할 수 있다.
 - `Menu` 에서 `MenuPrice` 를 변경한다.
 - `MenuPrice` 륿 변경할 때 `MenuProduct` 의 총 `Price` 를 초과하는 경우 변경할 수 없다.
-
-### 메뉴 상품
 - `MenuProduct` 는 `Product`, `Quantity` 을 가진다.
 - `MenuProduct` 에서 `Product` 의 총 `Price` 을 계산한다.
 
