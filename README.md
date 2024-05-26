@@ -212,8 +212,13 @@ docker compose -p kitchenpos up -d
 - `MenuProduct` 에서 `Product` 의 총 `Price` 을 계산한다.
 
 ### 주문 테이블
-- `OrderTable` 은 식별자, `OrderTableName`, `NumberOfGuests`, `Occupied` 를 가진다.
-- `OrderTable` 에서 `Occupied`를 변경한다.
+- `OrderTable` 은 식별자, `OrderTableName`, `NumberOfGuests`, `Occupied` 를 항상가진다.
+- `OrderTable` 에서 `Occupied`를 `OccupyingTable` 또는 `ClearedTable` 로 변경한다.
+- `ClearedTable` 로 변경할 때 `Order` 의 상태가 `COMPLETED` 여야 한다.
+- `ClearedTable` 은 `NumberOfGuests` 가 0이고, `Occupied` 가 아닌 상태이다.
+- `OrderTable` 에서 `NumberOfGuests` 를 변경한다.
+- `NumberOfGuests` 는 0명 이상이다.
+- `NumberOfGuests` 는 `OccupyingTable` 일 때만 가능하다.
 
 ### 배달 주문
 - `Order` 는 `OrderType` 중 `DELIVERY_ORDER` 를 가진다.
