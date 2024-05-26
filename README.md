@@ -202,8 +202,12 @@ docker compose -p kitchenpos up -d
 ### 메뉴
 - `Menu` 는 식별자, `MenuName`, `MenuPrice`, `MenuGroup`, `MenuDisplayStatus`, `MenuProducts` 를 가진다.
 - `Menu`에서 `MenuProducts`를 생성한다.
-- `Menu`에서 `MenuDisplayStatus` 를 변경한다.
-- `Menu`에서 `MenuProduct` 가격의 총 `Price`을 계산한다.
+- `Menu` 에서 `MenuProduct` 의 총 `Price`을 계산한다.
+- `Menu` 에서 `MenuDisplayStatus` 를 `DisplayedMenu` 로 변경 할 수 있다.
+- `MenuPrice` 가 `MenuProduct` 의 총 `Price` 를 초과하는 경우 `DisplayedMenu` 로 변경할 수 없다.
+- `Menu` 에서 `MenuDisplayStatus` 를 `UndisplayedMenu` 로 변경 할 수 있다.
+- `Menu` 에서 `MenuPrice` 를 변경한다.
+- `MenuPrice` 륿 변경할 때 `MenuProduct` 의 총 `Price` 를 초과하는 경우 변경할 수 없다.
 
 ### 메뉴 상품
 - `MenuProduct` 는 `Product`, `Quantity` 을 가진다.
