@@ -197,7 +197,7 @@ docker compose -p kitchenpos up -d
 - `Product` 에서 `ProductPrice` 를 변경한다.
 
 ### 메뉴 그룹
-- `MenuGroup` 은 식별자, `MenuGroupName` 을 가진다.
+- `MenuGroup` 은 식별자, `MenuGroupName` 를 항상 가진다.
 
 ### 메뉴
 - `Menu` 는 식별자, `MenuName`, `MenuPrice`, `MenuGroup`, `MenuDisplayStatus`, `MenuProducts` 를 가진다.
