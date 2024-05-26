@@ -192,7 +192,9 @@ docker compose -p kitchenpos up -d
 
 ## 모델링
 ### 상품
-- `Product` 는 식별자, `ProductName`, `ProductPrice` 을 가진다.
+- `Product` 는 식별자, `ProductName`, `ProductPrice` 을 항상 가진다.
+- `ProductPrice` 는 0원보다 적을 수 없다.
+- `Product` 에서 `ProductPrice` 를 변경한다.
 
 ### 메뉴 그룹
 - `MenuGroup` 은 식별자, `MenuGroupName` 을 가진다.
