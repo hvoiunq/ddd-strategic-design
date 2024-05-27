@@ -189,10 +189,10 @@ docker compose -p kitchenpos up -d
 
 ### 상품
 
-- `Product` 는 식별자, `ProductName`, `ProductPrice` 을 항상 가진다.
-- `ProductPrice` 는 0원보다 적을 수 없다.
-- `Product` 에서 `ProductPrice` 를 변경한다.
-- `ProductName` 는 `Slang`을 포함할 수 없다.
+- `Product(상품)` 는 식별자, `ProductName(상품 이름)`, `ProductPrice(상품 가격)` 을 항상 가진다.
+- `ProductPrice(상품 가격)` 는 0원보다 적을 수 없다.
+- `Product(상품)` 에서 `ProductPrice(상품 가격)` 를 변경한다.
+- `ProductName(상품 이름)` 는 `Slang(비속어)`을 포함할 수 없다.
 
 ### 메뉴 그룹
 
@@ -201,7 +201,7 @@ docker compose -p kitchenpos up -d
 ### 메뉴
 
 - `Menu` 는 식별자, `MenuName`, `MenuPrice`, `MenuGroup`, `MenuDisplayStatus`, `MenuProducts` 를 가진다.
-- `MenuName` 은 `Slang`을 포함할 수 없다.
+- `MenuName` 은 `Slang(비속어)`을 포함할 수 없다.
 - `Menu` 에서 `MenuProducts`를 생성한다.
 - `Menu` 에서 `MenuProduct` 의 총 `Price`을 계산한다.
 - `Menu` 에서 `MenuDisplayStatus` 를 `DisplayedMenu` 로 변경 할 수 있다.
@@ -209,8 +209,8 @@ docker compose -p kitchenpos up -d
 - `Menu` 에서 `MenuDisplayStatus` 를 `UndisplayedMenu` 로 변경 할 수 있다.
 - `Menu` 에서 `MenuPrice` 를 변경한다.
 - `MenuPrice` 륿 변경할 때 `MenuProduct` 의 총 `Price` 를 초과하는 경우 변경할 수 없다.
-- `MenuProduct` 는 `Product`, `Quantity` 을 가진다.
-- `MenuProduct` 에서 `Product` 의 총 `Price` 을 계산한다.
+- `MenuProduct` 는 `Product(상품)`, `Quantity` 을 가진다.
+- `MenuProduct` 에서 `Product(상품)` 의 총 `Price` 을 계산한다.
 
 ### 주문 테이블
 
