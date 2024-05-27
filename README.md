@@ -214,13 +214,13 @@ docker compose -p kitchenpos up -d
 
 ### 주문 테이블
 
-- `OrderTable` 은 식별자, `OrderTableName`, `NumberOfGuests`, `Occupied` 를 항상가진다.
-- `OrderTable` 에서 `Occupied`를 `OccupyingTable` 또는 `ClearedTable` 로 변경한다.
-- `ClearedTable` 로 변경할 때 `Order` 의 상태가 `COMPLETED` 여야 한다.
-- `ClearedTable` 은 `NumberOfGuests` 가 0이고, `Occupied` 가 아닌 상태이다.
-- `OrderTable` 에서 `NumberOfGuests` 를 변경한다.
-- `NumberOfGuests` 는 0명 이상이다.
-- `NumberOfGuests` 는 `OccupyingTable` 일 때만 가능하다.
+- `OrderTable(주문 테이블)` 은 식별자, `OrderTableName(주문 테이블 이름)`, `NumberOfGuests(손님 수)`, `Occupied(착석여부)` 를 항상가진다.
+- `OrderTable(주문 테이블)` 에서 `Occupied(착석여부)`를 `OccupyingTable(착석 테이블)` 또는 `ClearedTable(빈 테이블)` 로 변경한다.
+- `ClearedTable(빈 테이블)` 로 변경할 때 `Order` 의 상태가 `COMPLETED` 여야 한다.
+- `ClearedTable(빈 테이블)` 은 `NumberOfGuests(손님 수)` 가 0이고, `Occupied(착석여부)` 가 아닌 상태이다.
+- `OrderTable(주문 테이블)` 에서 `NumberOfGuests(손님 수)` 를 변경한다.
+- `NumberOfGuests(손님 수)` 는 0명 이상이다.
+- `NumberOfGuests(손님 수)` 는 `OccupyingTable(착석 테이블)` 일 때만 가능하다.
 
 ### 배달 주문
 
@@ -267,12 +267,12 @@ docker compose -p kitchenpos up -d
 ### 매장 주문
 
 - `Order` 는 `OrderType` 중 `EAT_IN` 를 가진다.
-- `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems`, `OrderTable`을 가진다.
+- `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems`, `OrderTable(주문 테이블)`을 가진다.
 - `Order` 에서 `OrderLineItems` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
 - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` →  `Completed` 를 가진다.
-- 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)`이고. `OrderTable`이 있어야 등록이 가능하다.
+- 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)`이고. `OrderTable(주문 테이블)`이 있어야 등록이 가능하다.
 
   ```mermaid
   ---
