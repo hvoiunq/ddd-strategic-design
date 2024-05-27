@@ -196,21 +196,21 @@ docker compose -p kitchenpos up -d
 
 ### 메뉴 그룹
 
-- `MenuGroup` 은 식별자, `MenuGroupName` 를 항상 가진다.
+- `MenuGroup(메뉴 그룹)` 은 식별자, `MenuGroupName(메뉴 그룹 이름)` 를 항상 가진다.
 
 ### 메뉴
 
-- `Menu` 는 식별자, `MenuName`, `MenuPrice`, `MenuGroup`, `MenuDisplayStatus`, `MenuProducts` 를 가진다.
-- `MenuName` 은 `Slang(비속어)`을 포함할 수 없다.
-- `Menu` 에서 `MenuProducts`를 생성한다.
-- `Menu` 에서 `MenuProduct` 의 총 `Price`을 계산한다.
-- `Menu` 에서 `MenuDisplayStatus` 를 `DisplayedMenu` 로 변경 할 수 있다.
-- `MenuPrice` 가 `MenuProduct` 의 총 `Price` 를 초과하는 경우 `DisplayedMenu` 로 변경할 수 없다.
-- `Menu` 에서 `MenuDisplayStatus` 를 `UndisplayedMenu` 로 변경 할 수 있다.
-- `Menu` 에서 `MenuPrice` 를 변경한다.
-- `MenuPrice` 륿 변경할 때 `MenuProduct` 의 총 `Price` 를 초과하는 경우 변경할 수 없다.
-- `MenuProduct` 는 `Product(상품)`, `Quantity` 을 가진다.
-- `MenuProduct` 에서 `Product(상품)` 의 총 `Price` 을 계산한다.
+- `Menu(메뉴)` 는 식별자, `MenuName(메뉴 이름)`, `MenuPrice(메뉴 가격)`, `MenuGroup(메뉴 그룹)`, `MenuDisplayStatus(메뉴 노출 상태)`, 여러 개의 `MenuProduct(메뉴 상품)` 를 가진다.
+- `MenuName(메뉴 이름)` 은 `Slang(비속어)`을 포함할 수 없다.
+- `Menu(메뉴)` 에서 여러 개의 `MenuProduct(메뉴 상품)`를 생성한다.
+- `Menu(메뉴)` 에서 `MenuProduct(메뉴 상품)` 의 총 `Price(가격)`을 계산한다.
+- `Menu(메뉴)` 에서 `MenuDisplayStatus(메뉴 노출 상태)` 를 `DisplayedMenu(노출된 메뉴)` 로 변경 할 수 있다.
+- `MenuPrice(메뉴 가격)` 가 `MenuProduct(메뉴 상품)` 의 총 `Price(가격)` 를 초과하는 경우 `DisplayedMenu(노출된 메뉴)` 로 변경할 수 없다.
+- `Menu(메뉴)` 에서 `MenuDisplayStatus(메뉴 노출 상태)` 를 `UndisplayedMenu(숨겨진 메뉴)` 로 변경 할 수 있다.
+- `Menu(메뉴)` 에서 `MenuPrice(메뉴 가격)` 를 변경한다.
+- `MenuPrice(메뉴 가격)` 륿 변경할 때 `MenuProduct(메뉴 상품)` 의 총 `Price(가격)` 를 초과하는 경우 변경할 수 없다.
+- `MenuProduct(메뉴 상품)` 는 `Product(상품)`, `Quantity(수량)` 을 가진다.
+- `MenuProduct(메뉴 상품)` 에서 `Product(상품)` 의 총 `Price(가격)` 을 계산한다.
 
 ### 주문 테이블
 
@@ -227,10 +227,10 @@ docker compose -p kitchenpos up -d
 - `Order` 는 `OrderType` 중 `DELIVERY_ORDER` 를 가진다.
 - `Order` 는 식별자, `OrderStatus`, 주문 일시, `DeliveryAddress`, `OrderLineItems` 을 가진다.
 - `Order` 에서 `OrderLineItems` 를 생성한다.
-- `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
+- `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
 - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Delivering` → `Delivered` → `Completed` 를 가진다.
-- 주문 등록 정책 : `Menu`가 `DisplayedMenu` 면서 0개 이상 주문을 해야하고, `DeliveryAddress`가 있어야 가능하다.
+- 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)` 면서 0개 이상 주문을 해야하고, `DeliveryAddress`가 있어야 가능하다.
 
   ```mermaid
   ---
@@ -249,10 +249,10 @@ docker compose -p kitchenpos up -d
 - `Order` 는 `OrderType` 중 `TAKEOUT` 를 가진다.
 - `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems` 을 가진다.
 - `Order` 에서 `OrderLineItems` 를 생성한다.
-- `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
+- `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
 - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
-- 주문 등록 정책 : `Menu`가 `DisplayedMenu` 면서 0개 이상이어야 등록이 가능하다.
+- 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)` 면서 0개 이상이어야 등록이 가능하다.
 
   ```mermaid
   ---
@@ -269,10 +269,10 @@ docker compose -p kitchenpos up -d
 - `Order` 는 `OrderType` 중 `EAT_IN` 를 가진다.
 - `Order` 는 식별자, `OrderStatus`, 주문 일시, `OrderLineItems`, `OrderTable`을 가진다.
 - `Order` 에서 `OrderLineItems` 를 생성한다.
-- `OrderLineItem` 은 `DisplayedMenu` , `Quantity`, 총 `Price` 을 가진다.
+- `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
 - `Order` 에서 `OrderStatus` 를 변경한다.
 - `OrderStatus` 는 `Waiting` → `Accepted` → `Served` →  `Completed` 를 가진다.
-- 주문 등록 정책 : `Menu`가 `DisplayedMenu`이고. `OrderTable`이 있어야 등록이 가능하다.
+- 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)`이고. `OrderTable`이 있어야 등록이 가능하다.
 
   ```mermaid
   ---
