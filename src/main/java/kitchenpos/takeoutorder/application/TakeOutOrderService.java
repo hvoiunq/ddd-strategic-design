@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-public class OrderService {
+public class TakeOutOrderService {
     private final OrderRepository orderRepository;
     private final MenuRepository menuRepository;
     private final OrderTableRepository orderTableRepository;
     private final KitchenridersClient kitchenridersClient;
 
-    public OrderService(
+    public TakeOutOrderService(
             final OrderRepository orderRepository,
             final MenuRepository menuRepository,
             final OrderTableRepository orderTableRepository,

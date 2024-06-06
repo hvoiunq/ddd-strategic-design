@@ -69,4 +69,10 @@ public class DeliveryOrder {
         this.deliveryAddress = deliveryAddress;
     }
 
+    public void setStatus(OrderStatus orderStatus) {
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
 }
