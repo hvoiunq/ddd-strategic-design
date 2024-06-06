@@ -13,10 +13,6 @@ public class DeliveryOrder {
     @Id
     private UUID id;
 
-    @Column(name = "type", nullable = false, columnDefinition = "varchar(255)")
-    @Enumerated(EnumType.STRING)
-    private OrderType type;
-
     @Column(name = "status", nullable = false, columnDefinition = "varchar(255)")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -48,21 +44,6 @@ public class DeliveryOrder {
         this.id = id;
     }
 
-    public OrderType getType() {
-        return type;
-    }
-
-    public void setType(final OrderType type) {
-        this.type = type;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(final OrderStatus status) {
-        this.status = status;
-    }
 
     public LocalDateTime getOrderDateTime() {
         return orderDateTime;

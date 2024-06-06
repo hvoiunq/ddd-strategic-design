@@ -29,10 +29,6 @@ public class DeliveryOrderService {
 
     @Transactional
     public DeliveryOrder create(final DeliveryOrder request) {
-        final OrderType type = request.getType();
-        if (Objects.isNull(type)) {
-            throw new IllegalArgumentException();
-        }
         final List<OrderLineItem> orderLineItemRequests = request.getOrderLineItems();
         if (Objects.isNull(orderLineItemRequests) || orderLineItemRequests.isEmpty()) {
             throw new IllegalArgumentException();
@@ -64,7 +60,6 @@ public class DeliveryOrderService {
 
         DeliveryOrder order = new DeliveryOrder();
         order.setId(UUID.randomUUID());
-        order.setType(type);
         order.setStatus(OrderStatus.WAITING);
         order.setOrderDateTime(LocalDateTime.now());
         order.setOrderLineItems(orderLineItems);
@@ -133,7 +128,6 @@ public class DeliveryOrderService {
     public DeliveryOrder complete(final UUID orderId) {
         final DeliveryOrder order = orderRepository.findById(orderId)
                 .orElseThrow(NoSuchElementException::new);
-        final OrderType type = order.getType();
         final OrderStatus status = order.getStatus();
         if (status != OrderStatus.DELIVERED) {
             throw new IllegalStateException();
