@@ -233,7 +233,6 @@ docker compose -p kitchenpos up -d
 
 ### 배달 주문
 
-- `delivery order(배달주문)` 는 `OrderType(주문 종류)` 중 `DELIVERY_ORDER(배달 주문)` 를 가진다.
 - `delivery order(배달주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, `DeliveryAddress(배달 주소)`, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
 - `delivery order(배달주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
@@ -255,7 +254,6 @@ docker compose -p kitchenpos up -d
 
 ### 포장 주문
 
-- `takeout order(포장주문)` 는 `OrderType(주문 종류)` 중 `TAKEOUT(포장 주문)` 를 가진다.
 - `takeout order(포장주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
 - `takeout order(포장주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
@@ -275,7 +273,6 @@ docker compose -p kitchenpos up -d
 
 ### 매장 주문
 
-- `eat-in order(매장주문)` 는 `OrderType(주문 종류)` 중 `EAT_IN(매장 주문)` 를 가진다.
 - `eat-in order(매장주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, 여러 개의 `OrderLineItem(주문 항목)`, `OrderTable(주문 테이블)`을 가진다.
 - `eat-in order(매장주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
