@@ -233,11 +233,11 @@ docker compose -p kitchenpos up -d
 
 ### 배달 주문
 
-- ` delivery order(배달주문)` 는 `OrderType(주문 종류)` 중 `DELIVERY_ORDER(배달 주문)` 를 가진다.
-- ` delivery order(배달주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, `DeliveryAddress(배달 주소)`, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
-- ` delivery order(배달주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
+- `delivery order(배달주문)` 는 `OrderType(주문 종류)` 중 `DELIVERY_ORDER(배달 주문)` 를 가진다.
+- `delivery order(배달주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, `DeliveryAddress(배달 주소)`, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
+- `delivery order(배달주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
-- ` delivery order(주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
+- `delivery order(배달주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
 - `OrderStatus(주문 상턔)` 는 `Waiting` → `Accepted` → `Served` → `Delivering` → `Delivered` → `Completed` 를 가진다.
 - 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)` 면서 0개 이상 주문을 해야하고, `DeliveryAddress(배달 주소)`가 있어야 가능하다.
 
