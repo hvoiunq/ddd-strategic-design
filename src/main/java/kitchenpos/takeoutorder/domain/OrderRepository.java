@@ -5,12 +5,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OrderRepository {
-    Order save(Order order);
+    TakeOutOrder save(TakeOutOrder order);
 
-    Optional<Order> findById(UUID id);
+    Optional<TakeOutOrder> findById(UUID id);
 
-    List<Order> findAll();
-
-    boolean existsByOrderTableAndStatusNot(OrderTable orderTable, OrderStatus status);
+    List<TakeOutOrder> findAll();
 }
 

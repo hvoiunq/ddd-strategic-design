@@ -8,14 +8,10 @@ import java.util.UUID;
 
 @Table(name = "orders")
 @Entity
-public class Order {
+public class TakeOutOrder {
     @Column(name = "id", columnDefinition = "binary(16)")
     @Id
     private UUID id;
-
-    @Column(name = "type", nullable = false, columnDefinition = "varchar(255)")
-    @Enumerated(EnumType.STRING)
-    private OrderType type;
 
     @Column(name = "status", nullable = false, columnDefinition = "varchar(255)")
     @Enumerated(EnumType.STRING)
@@ -33,21 +29,7 @@ public class Order {
     )
     private List<OrderLineItem> orderLineItems;
 
-    @Column(name = "delivery_address")
-    private String deliveryAddress;
-
-    @ManyToOne
-    @JoinColumn(
-        name = "order_table_id",
-        columnDefinition = "binary(16)",
-        foreignKey = @ForeignKey(name = "fk_orders_to_order_table")
-    )
-    private OrderTable orderTable;
-
-    @Transient
-    private UUID orderTableId;
-
-    public Order() {
+    public TakeOutOrder() {
     }
 
     public UUID getId() {
@@ -56,14 +38,6 @@ public class Order {
 
     public void setId(final UUID id) {
         this.id = id;
-    }
-
-    public OrderType getType() {
-        return type;
-    }
-
-    public void setType(final OrderType type) {
-        this.type = type;
     }
 
     public OrderStatus getStatus() {
@@ -90,27 +64,4 @@ public class Order {
         this.orderLineItems = orderLineItems;
     }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(final String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public OrderTable getOrderTable() {
-        return orderTable;
-    }
-
-    public void setOrderTable(final OrderTable orderTable) {
-        this.orderTable = orderTable;
-    }
-
-    public UUID getOrderTableId() {
-        return orderTableId;
-    }
-
-    public void setOrderTableId(final UUID orderTableId) {
-        this.orderTableId = orderTableId;
-    }
 }
