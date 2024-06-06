@@ -188,16 +188,16 @@ docker compose -p kitchenpos up -d
 
 ## 모델링
 
+- 참고내용
+    - h3 은 바운디드 컨텍스트를 뜻한다.
+    - h5 는 하위 도메인을 뜻한다. (바운디드 컨텍스트와 명칭이 동일한 경우는 생략)
+
 ### 상품
 
 - `Product(상품)` 는 식별자, `ProductName(상품 이름)`, `ProductPrice(상품 가격)` 을 항상 가진다.
 - `ProductPrice(상품 가격)` 는 0원보다 적을 수 없다.
 - `Product(상품)` 에서 `ProductPrice(상품 가격)` 를 변경한다.
 - `ProductName(상품 이름)` 는 `Slang(비속어)`을 포함할 수 없다.
-
-### 메뉴 그룹
-
-- `MenuGroup(메뉴 그룹)` 은 식별자, `MenuGroupName(메뉴 그룹 이름)` 를 항상 가진다.
 
 ### 메뉴
 
@@ -211,8 +211,15 @@ docker compose -p kitchenpos up -d
 - `Menu(메뉴)` 에서 `MenuDisplayStatus(메뉴 노출 상태)` 를 `UndisplayedMenu(숨겨진 메뉴)` 로 변경 할 수 있다.
 - `Menu(메뉴)` 에서 `MenuPrice(메뉴 가격)` 를 변경한다.
 - `MenuPrice(메뉴 가격)` 륿 변경할 때 `MenuProduct(메뉴 상품)` 의 총 `Price(가격)` 를 초과하는 경우 변경할 수 없다.
+
+##### 메뉴 상품
+
 - `MenuProduct(메뉴 상품)` 는 `Product(상품)`, `Quantity(수량)` 을 가진다.
 - `MenuProduct(메뉴 상품)` 에서 `Product(상품)` 의 총 `Price(가격)` 을 계산한다.
+
+##### 메뉴 그룹
+
+- `MenuGroup(메뉴 그룹)` 은 식별자, `MenuGroupName(메뉴 그룹 이름)` 를 항상 가진다.
 
 ### 주문 테이블
 
@@ -226,11 +233,11 @@ docker compose -p kitchenpos up -d
 
 ### 배달 주문
 
-- `Order(주문)` 는 `OrderType(주문 종류)` 중 `DELIVERY_ORDER(배달 주문)` 를 가진다.
-- `Order(주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, `DeliveryAddress(배달 주소)`, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
-- `Order(주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
+- ` delivery order(배달주문)` 는 `OrderType(주문 종류)` 중 `DELIVERY_ORDER(배달 주문)` 를 가진다.
+- ` delivery order(배달주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, `DeliveryAddress(배달 주소)`, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
+- ` delivery order(배달주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
-- `Order(주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
+- ` delivery order(주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
 - `OrderStatus(주문 상턔)` 는 `Waiting` → `Accepted` → `Served` → `Delivering` → `Delivered` → `Completed` 를 가진다.
 - 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)` 면서 0개 이상 주문을 해야하고, `DeliveryAddress(배달 주소)`가 있어야 가능하다.
 
@@ -248,11 +255,11 @@ docker compose -p kitchenpos up -d
 
 ### 포장 주문
 
-- `Order(주문)` 는 `OrderType(주문 종류)` 중 `TAKEOUT(포장 주문)` 를 가진다.
-- `Order(주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
-- `Order(주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
+- `takeout order(포장주문)` 는 `OrderType(주문 종류)` 중 `TAKEOUT(포장 주문)` 를 가진다.
+- `takeout order(포장주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, 여러 개의 `OrderLineItem(주문 항목)` 을 가진다.
+- `takeout order(포장주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
-- `Order(주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
+- `takeout order(포장주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
 - `OrderStatus(주문 상턔)` 는 `Waiting` → `Accepted` → `Served` → `Completed` 를 가진다.
 - 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)` 면서 0개 이상이어야 등록이 가능하다.
 
@@ -268,11 +275,11 @@ docker compose -p kitchenpos up -d
 
 ### 매장 주문
 
-- `Order(주문)` 는 `OrderType(주문 종류)` 중 `EAT_IN(매장 주문)` 를 가진다.
-- `Order(주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, 여러 개의 `OrderLineItem(주문 항목)`, `OrderTable(주문 테이블)`을 가진다.
-- `Order(주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
+- `eat-in order(매장주문)` 는 `OrderType(주문 종류)` 중 `EAT_IN(매장 주문)` 를 가진다.
+- `eat-in order(매장주문)` 는 식별자, `OrderStatus(주문 상턔)`, 주문 일시, 여러 개의 `OrderLineItem(주문 항목)`, `OrderTable(주문 테이블)`을 가진다.
+- `eat-in order(매장주문)` 에서 여러 개의 `OrderLineItem(주문 항목)` 를 생성한다.
 - `OrderLineItem` 은 `DisplayedMenu(노출된 메뉴)` , `Quantity(수량)`, 총 `Price(가격)` 을 가진다.
-- `Order(주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
+- `eat-in order(매장주문)` 에서 `OrderStatus(주문 상턔)` 를 변경한다.
 - `OrderStatus(주문 상턔)` 는 `Waiting` → `Accepted` → `Served` →  `Completed` 를 가진다.
 - 주문 등록 정책 : `Menu(메뉴)`가 `DisplayedMenu(노출된 메뉴)`이고. `OrderTable(주문 테이블)`이 있어야 등록이 가능하다.
 
