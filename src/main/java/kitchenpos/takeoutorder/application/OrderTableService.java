@@ -1,11 +1,11 @@
-package kitchenpos.order.application;
+package kitchenpos.takeoutorder.application;
 
-import kitchenpos.order.domain.OrderRepository;
-import kitchenpos.order.domain.OrderStatus;
-import kitchenpos.order.domain.OrderTable;
-import kitchenpos.order.domain.OrderTableRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import kitchenpos.takeoutorder.domain.OrderRepository;
+import kitchenpos.takeoutorder.domain.OrderStatus;
+import kitchenpos.takeoutorder.domain.OrderTable;
+import kitchenpos.takeoutorder.domain.OrderTableRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
